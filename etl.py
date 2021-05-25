@@ -5,7 +5,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, col,to_date
 from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format,dayofweek,monotonically_increasing_id
 from pyspark.sql.types import TimestampType, DateType,IntegerType
-
+from datetime import datetime
 config = configparser.ConfigParser()
 config.read('dl.cfg')
 
@@ -84,7 +84,7 @@ def process_log_data(spark, input_data, output_data):
     df = df.withColumn("timestamp",get_timestamp(col("ts")))
 
     # create datetime column from original timestamp column
-    get_datetime = udf(lambda x :to_date(x),TimestampType())
+    get_datetime = udf(lambda x: datetime.fromtimestamp(x))
     df =df.withColumn("start_time",get_datetime(col("ts")))
 
     # extract columns to create time table
