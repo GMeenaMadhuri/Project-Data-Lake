@@ -14,10 +14,7 @@ os.environ['AWS_SECRET_ACCESS_KEY']=config['KEYS']['AWS_SECRET_ACCESS_KEY']
 
 
 def create_spark_session():
-    """
-    create a spark session with return of spark
-    return: spark session aka spark
-    """
+   
     spark = SparkSession \
         .builder \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.0") \
@@ -26,15 +23,7 @@ def create_spark_session():
 
 
 def process_song_data(spark, input_data, output_data):
-    """
-    Process song data to
-    Read data from S3 by input_data and write them back to S3 with output data
-    Here with the song_data
-    Args:
-        - spark: spark session
-        - input_data_song: input data song s3 linke
-        - output_data: my own s3 bucket (set in public)
-    """
+   
     # get filepath to song data file
     song_data = "{}/song_data/A/A/A/*.json".format(input_data)
     
@@ -56,14 +45,7 @@ def process_song_data(spark, input_data, output_data):
     df.createOrReplaceTempView("song_table")
 
 def process_log_data(spark, input_data, output_data):
-    """
-    Read data from S3 by input_data and write them back to S3 with output data
-    Here with the log_data
-    Args:
-        - spark: spark session
-        - input_data_log: input data logs s3 link
-        - output_data: My own s3 bucket (set in public)
-    """
+   
     # get filepath to log data file
     log_data = "s3a://udacity-dend/log_data/*/*/*events.json".format(input_data)
 
@@ -113,9 +95,7 @@ def process_log_data(spark, input_data, output_data):
 
 
 def main():
-    """
-    Operating function
-    """
+   
     spark = create_spark_session()
     input_data = "s3a://udacity-dend/"
     output_data = "s3a://awsbucket41/Sparkify/"
